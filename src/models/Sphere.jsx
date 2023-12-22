@@ -1,66 +1,51 @@
-import {useRef} from 'react'
-import { AppActor } from '../App.jsx'
-import { assign } from 'xstate';
-import { useFrame } from '@react-three/fiber';
+import {useEffect, useRef, useState} from 'react'
+import { assign, createMachine, createActor } from 'xstate';
+import { useActor } from '@xstate/react';
 
-export const Sphere = ({position, scale}) => {
+export const Sphere = ({position, scale }) => {
 
-    // AppActor.send({type: 'makeACube', data: { id: fsm } })
+    const sphere = useRef()
 
-    // let cuberotation = 0
+    const [ state, send, actorRef ] = useActor((createMachine(sphereLogic)));
 
-    // const fsmRef = AppActor.system.get(fsm)
-    // console.log(fsmRef)
-    // fsmRef.subscribe((snapshot) => {
-    //     cuberotation = snapshot.context.cubespin
-    // })
+    useEffect(() => {
+        sphere.current.position.y = state.context.yPosition
+        console.log(state.context.yPosition)
+    }   , [state.context.yPosition])
 
-    // const cube = useRef()   
-
-    // useFrame((state, delta) => {
-    //     cube.current.rotation.y += delta * cuberotation
-    // })
     
-    // const clickhandler = () => {
-    //     const friendRef = AppActor.system.get(friend)
-    //     friendRef.send({type: 'CLK'})
-    // }
+    const clickhandler = () => {
+        send({type: 'CLK'})
+    }
 
     return (
-        <mesh position={position} scale={scale}>
+        <mesh onClick={clickhandler} ref={sphere} position={position} scale={scale} >
           <meshStandardMaterial />
-          <sphereGeometry />
+          <sphereGeometry radius={5} />
         </mesh>
     );
 };
 
 export const sphereLogic = {
     predictableActionArguments: true,
-    id: 'cubeFSM',
-    initial: 'idle',
+    id: 'csphereFSM',
+    initial: 'half',
     context: {
-        cubespin: 0,
+        yPosition: 0
     },
     states: {
-        idle: { 
+        half: { 
             on: {
                 CLK: {
-                    target: "slow",
-                    actions: [ (context, event) => console.log( context, event ), assign( {cubespin: 1} ) ]
+                    target: "small",
+                    actions: [ (context, event) => console.log( context, event ), assign( {yPosition: 1} ) ]
                 }
             }
         },
-        slow: {
+        small: {
             on: {
-                CLK: {target: "fast", 
-                    actions: [ (context, event) => console.log( context, event ), assign( {cubespin: 2}) ]
-                }
-            }
-        },
-        fast:{
-            on: {
-                CLK: {target: "idle", 
-                    actions: [ (context, event) => console.log( context, event ), assign( {cubespin: 0}) ]
+                CLK: {target: "half", 
+                    actions: [ (context, event) => console.log( context, event ), assign( {yPosition: 0}) ]
                 }
             }
         },
