@@ -9,7 +9,8 @@ export const Menu = () => {
   };
 
   const handleClick = (e) => {
-    AppActor.send({ type: 'MENU_ITEM', data: { color: e.target.style.color, message: "You clicked on ${e.target.style.color}." } })
+    const msg = "You clicked on " + e.target.style.color + "."
+    AppActor.send({ type: 'MENU_ITEM', data: { color: e.target.style.color, message: msg} })
     console.log('clicked', e.target.style.color )
   }
 

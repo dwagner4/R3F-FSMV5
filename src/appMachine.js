@@ -7,9 +7,9 @@ import { cubeLogic } from './models/Cube.jsx'
 export const appMachine = createMachine({
   "id": "appMachine",
   "context": {
-    "message": "no message",
+    "message": "click a menu item to change me",
     "count": 0,
-    "color": "red",
+    "color": "black",
     elements: []
   },
   "initial": "home",

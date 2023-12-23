@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Experience } from "./exp/Experience";
 // import { HeadsUp } from "./components/headsup/HeadsUp.jsx"
 import { Menu } from './components/menu/Menu.jsx'
+import { Nda } from './components/nda/Nda.jsx'
 
 import * as React from 'react';
 import { appMachine } from './appMachine.js'
@@ -24,7 +25,7 @@ function App() {
         <Experience />
       </Canvas>
       <Menu />
-
+      <Nda />
     </>
   );
 }
