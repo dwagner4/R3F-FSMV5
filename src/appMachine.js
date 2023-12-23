@@ -9,7 +9,7 @@ export const appMachine = createMachine({
   "context": {
     "message": "no message",
     "count": 0,
-    "color": "#ff8800",
+    "color": "red",
     elements: []
   },
   "initial": "home",
@@ -38,7 +38,15 @@ export const appMachine = createMachine({
             },
         })    
       ]  
-    }
+    },
+    "MENU_ITEM": {  
+      actions: [
+        assign({
+          message: ({ context, event }) => event.data.message,
+          color: ({ context, event }) => event.data.color,
+        }),
+      ]
+    },
   }
 }, {
       actions: {"getActorData": ({ context, event }) => {},
