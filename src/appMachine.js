@@ -1,9 +1,6 @@
 import { createMachine, createActor, assign } from 'xstate';
 import { cubeLogic } from './models/Cube.jsx'
 
-// const cubeMachine1 = createMachine( cubeLogic )
-// const cubeMachine2 = createMachine( cubeLogic )
-
 export const appMachine = createMachine({
   "id": "appMachine",
   "context": {
@@ -49,11 +46,7 @@ export const appMachine = createMachine({
     },
   }
 }, {
-      actions: {"getActorData": ({ context, event }) => {},
-                "toggleColor": assign({
-                  color: ( context, event ) => context.color = context.color == "blue" ? 'red' : "blue"
-                }),
-              },
+      actions: {},
       actors: {},
       guards: {},
       delays: {},

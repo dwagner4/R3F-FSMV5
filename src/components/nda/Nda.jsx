@@ -1,6 +1,7 @@
+/* subscribes to AppActor, uses useState this time. */
+
 import React, { useState, useRef } from 'react';
 import { AppActor } from '../../App';
-import { useSelector } from '@xstate/react';
 
 export const Nda = () => {
 

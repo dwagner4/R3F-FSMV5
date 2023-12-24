@@ -1,3 +1,5 @@
+/* Nothing special here, Note the attributes for Cubes */
+
 import { OrbitControls } from "@react-three/drei";
 import { Cube } from '../models/Cube.jsx'
 import { Sphere } from '../models/Sphere.jsx'

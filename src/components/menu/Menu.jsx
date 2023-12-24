@@ -1,3 +1,5 @@
+/** imports AppActor and sends messages about clicks */
+
 import React, { useState } from 'react';
 import { AppActor } from '../../App';
 

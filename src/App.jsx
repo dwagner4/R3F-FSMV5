@@ -1,3 +1,10 @@
+/* Top of the application. imports all the elements that compose the app.
+  Assigns the systemId to appMachine creating the AppActor and starting it.
+  The running AppActor is exported and can be used in all components.
+  An alternative would be to use createActorContext()  but I had trouble 
+  using the factory method to create children FSMs in an Array.
+*/
+
 import './App.css';
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./exp/Experience";
@@ -7,8 +14,8 @@ import { Nda } from './components/nda/Nda.jsx'
 
 import * as React from 'react';
 import { appMachine } from './appMachine.js'
-// import { createActorContext } from '@xstate/react'
 import { createActor } from 'xstate';
+
 
 export const AppActor = createActor(appMachine, {
   systemId: 'root-dean',

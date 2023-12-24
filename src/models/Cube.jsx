@@ -1,3 +1,10 @@
+/* Upon initiation, the cube sends a "makeACube" event to AppActor which triggers a cube Actor factory method
+   It fetches a ref to the FSM created and subscribes to changes in "cubespin"
+   cubespin is stored locally in a variable called cuberotation.  
+   I assume this is faster than fetching a snapshot on each frame.
+   maybe useState would be better
+*/
+
 import {useRef} from 'react'
 import { AppActor } from '../App.jsx'
 import { assign } from 'xstate';

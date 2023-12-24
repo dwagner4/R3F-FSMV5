@@ -1,12 +1,12 @@
-# GitHub Codespaces ♥️ React
+# R3F-FSMV5
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+This demo project uses React-Three-Fiber for 3D and Xstate V5 for all logic.  React components only display UI and generate events.  There are 4 Finite State Machines (FSM) used as Actors.  
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+There is a "Root" actor from appMachine.js which is meant to control the application.  The menu component sends messages to set data in the context.  At the same time the "NDA" component has subscribed to the root.context and reflects the state in its display.  Both components are outside the 3D environment.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+The sphere has its own FSM providing internal logic.  If you click on the shpere it changes its height.
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+When the two Cubes are instantiated they send an event to the appMachine which creates child actors using a factory method.  The systemId of the Cube and its "friend" are passed in as attributes to the Cube Component.  If you click on either Cube it sends an event to its friend's FSM.  Their state changes from stopped => rotating => rotating fasted -> stopped.
 
 ## Available Scripts
 
@@ -35,36 +35,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
-
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
