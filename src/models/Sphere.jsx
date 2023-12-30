@@ -1,6 +1,6 @@
 /* 
    Sphere has a SphereLogic JSON object which is used to create an Actor internal to the Sphere.
-   the logic could be iported from another file.
+   the logic could be imported from another file.
    Chose to use useEffect to trigger change, instead of subscribing to the actorref. 
 */
 

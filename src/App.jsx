@@ -2,7 +2,8 @@
   Assigns the systemId to appMachine creating the AppActor and starting it.
   The running AppActor is exported and can be used in all components.
   An alternative would be to use createActorContext()  but I had trouble 
-  using the factory method to create children FSMs in an Array.
+  using the factory method to create children FSMs in an Array and calling them 
+  from the root system
 */
 
 import './App.css';

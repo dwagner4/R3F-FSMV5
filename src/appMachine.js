@@ -37,16 +37,21 @@ export const appMachine = createMachine({
       ]  
     },
     "MENU_ITEM": {  
-      actions: [
-        assign({
-          message: ({ context, event }) => event.data.message,
-          color: ({ context, event }) => event.data.color,
-        }),
+      actions: [ "menuAction"
+        // assign({
+        //   message: ({ context, event }) => event.data.message,
+        //   color: ({ context, event }) => event.data.color,
+        // }),
       ]
     },
   }
 }, {
-      actions: {},
+      actions: {
+        menuAction: assign({
+          message: ({ context, event }) => event.data.message,
+          color: ({ context, event }) => event.data.color,
+        }),
+      },
       actors: {},
       guards: {},
       delays: {},
