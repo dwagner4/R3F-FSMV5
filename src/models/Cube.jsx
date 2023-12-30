@@ -3,23 +3,28 @@
    cubespin is stored locally in a variable called cuberotation.  
 */
 
-import { useRef, useState} from 'react'
+import { useEffect, useRef, useState} from 'react'
 import { AppActor } from '../App.jsx'
 import { assign } from 'xstate';
 import { useFrame } from '@react-three/fiber';
 
+
+
 export const Cube = ({position, tag, fsm, friend}) => {
 
-    AppActor.send({type: 'makeACube', data: { id: fsm } })
-
-    // let cuberotation = 0
     const [cuberotation, setCuberotation] = useState(0)
 
-    const fsmRef = AppActor.system.get(fsm)
-    console.log(fsmRef)
-    fsmRef.subscribe((snapshot) => {
+    useEffect(() => {
+        AppActor.send({type: 'makeACube', data: { id: fsm } })
+        const fsmRef = AppActor.system.get(fsm)
+        console.log(fsmRef) 
+
+    
+        fsmRef.subscribe((snapshot) => {
         setCuberotation(snapshot.context.cubespin)
     })
+    }, [])
+
 
     const cube = useRef()   
 
