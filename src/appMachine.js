@@ -1,4 +1,4 @@
-import { createMachine, createActor, assign } from 'xstate';
+import { createMachine, createActor, assign, spawnChild } from 'xstate';
 import { cubeLogic } from './models/Cube.jsx'
 
 export const appMachine = createMachine({
@@ -7,7 +7,8 @@ export const appMachine = createMachine({
     "message": "click a menu item to change me",
     "count": 0,
     "color": "black",
-    elements: []
+    elements: [],
+    elementObj: {}
   },
   "initial": "home",
   "states": {
@@ -24,12 +25,17 @@ export const appMachine = createMachine({
   },
   "on": {
     "makeACube": {
-      actions: [
+      actions: [ 
         assign({
+          elementObj: ({ context, event, spawn }) => {
+            const newCube = spawn(createMachine(cubeLogic))
+            const newID = event.data.id
+            const newObj = context.elementObj
+            newObj[newID] = newCube
+            return newObj
+          },
           elements: ({ context, event, spawn }) => {
-            const newCube = spawn(createMachine(cubeLogic), {
-              systemId: event.data.id,
-            });
+            const newCube = spawn(createMachine(cubeLogic), { systemId: event.data.id });
 
             return context.elements.concat(newCube);
             },
@@ -37,12 +43,7 @@ export const appMachine = createMachine({
       ]  
     },
     "MENU_ITEM": {  
-      actions: [ "menuAction"
-        // assign({
-        //   message: ({ context, event }) => event.data.message,
-        //   color: ({ context, event }) => event.data.color,
-        // }),
-      ]
+      actions: [ "menuAction", "log"]
     },
   }
 }, {
@@ -50,6 +51,22 @@ export const appMachine = createMachine({
         menuAction: assign({
           message: ({ context, event }) => event.data.message,
           color: ({ context, event }) => event.data.color,
+        }),
+        log: ({ context, event }) => console.log(context),
+        makeAcubeArray: assign({
+          elements: ({ context, event, spawn }) => {
+            const newCube = spawn(createMachine(cubeLogic), { systemId: event.data.id });
+            return context.elements.concat(newCube);
+          },
+        }),
+        MakeACubeObj: assign({
+          elementObj: ({ context, event, spawn }) => {
+            const newCube = spawn(createMachine(cubeLogic), { systemId: event.data.id})
+            const newID = event.data.id
+            const newObj = context.elementObj
+            newObj[newID] = newCube
+            return newObj
+          },
         }),
       },
       actors: {},
