@@ -1,4 +1,4 @@
-import { createMachine, createActor, assign, spawnChild } from 'xstate';
+import { createMachine, assign } from 'xstate';
 import { cubeLogic } from './models/Cube.jsx'
 
 export const appMachine = createMachine({
@@ -26,20 +26,8 @@ export const appMachine = createMachine({
   "on": {
     "makeACube": {
       actions: [ 
-        assign({
-          elementObj: ({ context, event, spawn }) => {
-            const newCube = spawn(createMachine(cubeLogic))
-            const newID = event.data.id
-            const newObj = context.elementObj
-            newObj[newID] = newCube
-            return newObj
-          },
-          elements: ({ context, event, spawn }) => {
-            const newCube = spawn(createMachine(cubeLogic), { systemId: event.data.id });
-
-            return context.elements.concat(newCube);
-            },
-        })    
+        // "makeACubeObj", 
+        "makeAcubeArray"   
       ]  
     },
     "MENU_ITEM": {  
@@ -59,7 +47,7 @@ export const appMachine = createMachine({
             return context.elements.concat(newCube);
           },
         }),
-        MakeACubeObj: assign({
+        makeACubeObj: assign({
           elementObj: ({ context, event, spawn }) => {
             const newCube = spawn(createMachine(cubeLogic), { systemId: event.data.id})
             const newID = event.data.id
