@@ -1,7 +1,7 @@
 /** imports AppActor and sends messages about clicks */
 
 import React, { useState } from 'react';
-import { AppActor } from '../../App';
+import { AppActor } from '../../appMachine.js';
 
 export const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);

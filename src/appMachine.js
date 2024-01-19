@@ -1,7 +1,7 @@
-import { createMachine, assign, setup } from 'xstate';
+import { createMachine, createActor, assign, setup } from 'xstate';
 import { cubeLogic } from './models/Cube.jsx'
 
-export const appMachine = setup(
+const appMachine = setup(
   {
     actions: {
       menuAction: assign({
@@ -65,3 +65,9 @@ export const appMachine = setup(
 }
 // 
 )
+
+export const AppActor = createActor(appMachine, {
+  systemId: 'root-dean',
+})
+
+AppActor.start()

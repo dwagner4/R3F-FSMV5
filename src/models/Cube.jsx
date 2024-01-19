@@ -4,7 +4,7 @@
 */
 
 import { useEffect, useRef, useState} from 'react'
-import { AppActor } from '../App.jsx'
+import { AppActor } from '../appMachine.js'
 import { assign } from 'xstate';
 import { useFrame } from '@react-three/fiber';
 
@@ -13,6 +13,8 @@ import { useFrame } from '@react-three/fiber';
 export const Cube = ({position, tag, fsm, friend}) => {
 
     const [cuberotation, setCuberotation] = useState(0)
+
+    const cube = useRef() 
 
     useEffect(() => {
         AppActor.send({type: 'makeACube', data: { id: fsm } })
@@ -24,9 +26,6 @@ export const Cube = ({position, tag, fsm, friend}) => {
         setCuberotation(snapshot.context.cubespin)
     })
     }, [])
-
-
-    const cube = useRef()   
 
     useFrame((state, delta) => {
         cube.current.rotation.y += delta * cuberotation
